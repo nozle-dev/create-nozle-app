@@ -1,6 +1,6 @@
 {
   "name": "create-nozle-app",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Create a Next.js SaaS app with Nozle billing - choose from 4 production-ready templates",
   "type": "module",
   "bin": {
@@ -21,7 +21,8 @@
     "build": "turbo build",
     "lint": "turbo lint",
     "typecheck": "turbo typecheck",
-    "clean": "turbo clean && rm -rf node_modules"
+    "clean": "turbo clean && rm -rf node_modules",
+    "test:templates": "node scripts/verify-templates.mjs"
   },
   "keywords": [
     "nozle",
@@ -35,7 +36,7 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@nozle-js/node": "^0.3.0",
+    "@nozle-js/node": "^0.7.0",
     "boxen": "^8.0.1",
     "chalk": "^5.3.0",
     "commander": "^12.1.0",
@@ -62,5 +63,9 @@
     "node": ">=18.0.0",
     "pnpm": ">=8.0.0"
   },
-  "packageManager": "pnpm@8.15.0"
+  "packageManager": "pnpm@8.15.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nozle-dev/create-nozle-app.git"
+  }
 }

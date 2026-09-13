@@ -1,13 +1,11 @@
 'use client'
 
 import { useState } from 'react'
-import { useCredits } from '@nozle-js/react'
-import { useAuth } from '@/lib/auth-context'
+import { useCreditBalance } from '@/lib/use-credit-balance'
 import { Zap, Image, FileText, Video, Music, Code, Palette, Loader2 } from 'lucide-react'
 
 export default function StudioPage() {
-  const { user } = useAuth()
-  const { balance: credits, loading: creditsLoading } = useCredits(user?.id || 'demo_customer')
+  const { balance: credits, loading: creditsLoading, error: balanceError, refresh } = useCreditBalance()
   const [executing, setExecuting] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
 
@@ -40,6 +38,7 @@ export default function StudioPage() {
         throw new Error(data.error || 'Failed to execute action')
       }
 
+      refresh()
       // Success - redirect to gallery or show result
       alert(`Action completed! ${actionCost} credits used. ${data.creditsRemaining} remaining.`)
     } catch (err) {
@@ -70,9 +69,9 @@ export default function StudioPage() {
       )}
 
       {/* Error Message */}
-      {error && (
+      {(error || balanceError) && (
         <div className="rounded-lg border border-red-500/50 bg-red-500/10 p-4 text-sm text-red-500">
-          {error}
+          {error || balanceError}
         </div>
       )}
 

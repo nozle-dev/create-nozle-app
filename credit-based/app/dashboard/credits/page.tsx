@@ -45,7 +45,6 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { CreditBalance } from '@nozle-js/react'
 import { Zap, TrendingUp, TrendingDown, Clock } from 'lucide-react'
 import { formatDistanceToNow } from 'date-fns'
 

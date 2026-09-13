@@ -54,9 +54,8 @@ async function retryWithBackoff<T>(
 }
 
 export async function validateApiKey(apiKey: string): Promise<ValidationResult> {
-  // Always use production URL
-  const baseUrl = 'https://api.nozle.app'
-  const eventsUrl = 'https://api.nozle.app'
+  const baseUrl = process.env.NOZLE_API_URL || 'https://api.nozle.app/engine'
+  const eventsUrl = process.env.NOZLE_EVENTS_URL || 'https://api.nozle.app/core'
 
   try {
     const nozle = new Nozle({ apiKey, baseUrl, eventsUrl })
@@ -169,7 +168,7 @@ export async function configureWorkspace(
       throw new Error('No API key found in Nozle client')
     }
 
-    const graphqlUrl = 'https://core.nozle.app/graphql'
+    const graphqlUrl = `${(process.env.NOZLE_EVENTS_URL || 'https://api.nozle.app/core').replace(/\/+$/, '')}/graphql`
 
     // Helper function to make GraphQL requests
     async function graphql<T = any>(

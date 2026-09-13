@@ -6,8 +6,8 @@ if (!process.env.NOZLE_API_KEY) {
 
 export const nozle = new Nozle({
   apiKey: process.env.NOZLE_API_KEY,
-  baseUrl: process.env.NOZLE_API_URL || 'https://api.nozle.ai',
-  eventsUrl: process.env.NOZLE_EVENTS_URL || 'https://api.nozle.ai',
+  baseUrl: process.env.NOZLE_API_URL || 'https://api.nozle.app/engine',
+  eventsUrl: process.env.NOZLE_EVENTS_URL || 'https://api.nozle.app/core',
 })
 
 /**
