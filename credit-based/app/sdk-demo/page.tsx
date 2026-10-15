@@ -1,6 +1,6 @@
 import { Nozle } from '@nozle-js/node'
 import type { CustomerUsageData } from '@nozle-js/react'
-import { CustomerPanels, PricingPanels } from './panels'
+import { CustomerPanels, HooksDemo, PricingPanels } from './panels'
 
 // Local preview of the @nozle-js integration build. The secret key stays on this server;
 // the browser only gets the publishable key for the public plan catalog.
@@ -64,6 +64,8 @@ export default async function SdkDemoPage() {
         planCodes={(process.env.NOZLE_DEMO_PLANS ?? 'free,pro,max').split(',')}
         currentPlanCode={subscription?.plan_code}
       />
+      <HooksDemo publishableKey={process.env.NEXT_PUBLIC_NOZLE_PUBLISHABLE_KEY ?? ''} previewPlan={process.env.NOZLE_DEMO_PREVIEW_PLAN ?? 'sdkverify_plan2'} />
+      <h2 style={{ fontSize: 20, fontWeight: 600 }}>Same components, data read on the server</h2>
       <CustomerPanels
         balance={balances.data?.balances.find((b) => Number(b.available) > 0) ?? balances.data?.balances[0] ?? null}
         balanceError={balances.error}
