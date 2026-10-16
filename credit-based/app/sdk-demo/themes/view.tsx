@@ -34,32 +34,14 @@ import {
   type PlanChangeState,
   type PricingPlan,
 } from '@nozle-js/react'
-import { dark, light, minimal, neobrutal, shadcn, system } from '@nozle-js/react/themes'
+import { dark, light, minimal, neobrutal } from '@nozle-js/react/themes'
 
 const THEMES: Record<string, { appearance: Appearance; page: string; text: string }> = {
   light: { appearance: { theme: light }, page: '#f8fafc', text: '#111827' },
   dark: { appearance: { theme: dark }, page: '#030712', text: '#f3f4f6' },
-  system: { appearance: { theme: system }, page: 'light-dark(#f8fafc, #030712)', text: 'light-dark(#111827, #f3f4f6)' },
-  shadcn: { appearance: { theme: shadcn }, page: '#ffffff', text: '#0a0a0a' },
   minimal: { appearance: { theme: minimal }, page: '#ffffff', text: '#111827' },
   neobrutal: { appearance: { theme: neobrutal }, page: '#fef9c3', text: '#000000' },
 }
-
-// shadcn/ui (Tailwind v4) default "neutral" variables, as a shadcn app defines them.
-const SHADCN_VARS = {
-  '--background': 'oklch(1 0 0)',
-  '--foreground': 'oklch(0.145 0 0)',
-  '--card': 'oklch(1 0 0)',
-  '--primary': 'oklch(0.205 0 0)',
-  '--primary-foreground': 'oklch(0.985 0 0)',
-  '--muted': 'oklch(0.97 0 0)',
-  '--muted-foreground': 'oklch(0.556 0 0)',
-  '--accent': 'oklch(0.97 0 0)',
-  '--accent-foreground': 'oklch(0.205 0 0)',
-  '--border': 'oklch(0.922 0 0)',
-  '--destructive': 'oklch(0.577 0.245 27.325)',
-  '--radius': '0.625rem',
-} as React.CSSProperties
 
 // ── Sample data ─────────────────────────────────────────────────────────────
 
@@ -185,29 +167,77 @@ function Labeled({ name, children }: { name: string; children: React.ReactNode }
   )
 }
 
-function ThemeSelect({ name }: { name: string }) {
+const COLOR_CONTROLS = [
+  ['colorPrimary', 'Primary'],
+  ['colorHighlight', 'Highlight'],
+  ['colorHighlightForeground', 'Highlight text'],
+  ['colorCard', 'Card'],
+  ['colorForeground', 'Text'],
+  ['colorBorder', 'Border'],
+] as const
+type ColorControl = (typeof COLOR_CONTROLS)[number][0]
+
+const control: React.CSSProperties = { display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, fontWeight: 600 }
+const field: React.CSSProperties = { font: 'inherit', fontWeight: 500, padding: '5px 8px', borderRadius: 8, border: '1px solid currentColor', background: 'transparent', color: 'inherit' }
+
+function Controls({
+  name,
+  highlight,
+  colors,
+  onColor,
+  onReset,
+}: {
+  name: string
+  highlight: 'outline' | 'filled'
+  colors: Partial<Record<ColorControl, string>>
+  onColor: (key: ColorControl, value: string) => void
+  onReset: () => void
+}) {
   const router = useRouter()
+  const go = (theme: string, style: string) => router.replace(`?theme=${theme}&highlight=${style}`, { scroll: false })
   return (
-    <label style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 14, fontWeight: 600 }}>
-      Theme
-      <select
-        value={name}
-        onChange={(event) => router.replace(`?theme=${event.target.value}`, { scroll: false })}
-        style={{ font: 'inherit', fontWeight: 500, padding: '6px 10px', borderRadius: 8, border: '1px solid currentColor', background: 'transparent', color: 'inherit' }}
-      >
-        {Object.keys(THEMES).map((theme) => (
-          <option key={theme} value={theme} style={{ color: '#111827' }}>
-            {theme}
-          </option>
-        ))}
-      </select>
-    </label>
+    <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 14 }}>
+      <label style={control}>
+        Theme
+        <select value={name} onChange={(event) => go(event.target.value, highlight)} style={field}>
+          {Object.keys(THEMES).map((theme) => (
+            <option key={theme} value={theme} style={{ color: '#111827' }}>
+              {theme}
+            </option>
+          ))}
+        </select>
+      </label>
+      <label style={control}>
+        Highlighted plan
+        <select value={highlight} onChange={(event) => go(name, event.target.value)} style={field}>
+          <option value="outline" style={{ color: '#111827' }}>outline</option>
+          <option value="filled" style={{ color: '#111827' }}>filled</option>
+        </select>
+      </label>
+      {COLOR_CONTROLS.map(([key, label]) => (
+        <label key={key} style={control} title={key}>
+          <input
+            type="color"
+            value={colors[key] ?? '#4f46e5'}
+            onChange={(event) => onColor(key, event.target.value)}
+            style={{ width: 26, height: 26, padding: 0, border: colors[key] ? '2px solid currentColor' : '1px dashed currentColor', borderRadius: 6, background: 'transparent' }}
+          />
+          {label}
+        </label>
+      ))}
+      <button type="button" onClick={onReset} style={{ ...field, cursor: 'pointer' }}>
+        Reset colours
+      </button>
+    </div>
   )
 }
 
-export function ThemeGallery({ name }: { name: string }) {
+export function ThemeGallery({ name, highlight }: { name: string; highlight: 'outline' | 'filled' }) {
   const key = THEMES[name] ? name : 'light'
   const chosen = THEMES[key]
+  // Colours picked on the page go on top of the theme as appearance variables.
+  const [colors, setColors] = useState<Partial<Record<ColorControl, string>>>({})
+  const appearance: Appearance = { ...chosen.appearance, variables: colors }
   // The portal mock lives on this app; its URL is known only in the browser.
   const [portalApiUrl, setPortalApiUrl] = useState('')
   useEffect(() => setPortalApiUrl(`${window.location.origin}/sdk-demo/themes/portal-mock`), [])
@@ -217,14 +247,13 @@ export function ThemeGallery({ name }: { name: string }) {
       style={{
         background: chosen.page,
         color: chosen.text,
-        colorScheme: key === 'system' ? 'light dark' : key === 'dark' ? 'dark' : 'light',
+        colorScheme: key === 'dark' ? 'dark' : 'light',
         minHeight: '100vh',
-        ...(key === 'shadcn' ? SHADCN_VARS : {}),
       }}
     >
       {/* Hides the Next.js dev indicator in screenshots. */}
       <style>{'nextjs-portal{display:none}'}</style>
-      <BillingProvider publishableKey="pk_demo_themes" appearance={chosen.appearance} createCheckout={createCheckout}>
+      <BillingProvider publishableKey="pk_demo_themes" appearance={appearance} createCheckout={createCheckout}>
         <header
           style={{
             position: 'sticky',
@@ -233,6 +262,7 @@ export function ThemeGallery({ name }: { name: string }) {
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
+            flexWrap: 'wrap',
             gap: 16,
             padding: '14px 32px',
             background: chosen.page,
@@ -240,13 +270,19 @@ export function ThemeGallery({ name }: { name: string }) {
           }}
         >
           <strong style={{ fontSize: 16 }}>@nozle-js/react themes</strong>
-          <ThemeSelect name={key} />
+          <Controls
+            name={key}
+            highlight={highlight}
+            colors={colors}
+            onColor={(control, value) => setColors((previous) => ({ ...previous, [control]: value }))}
+            onReset={() => setColors({})}
+          />
         </header>
 
         {/* The docs screenshots capture this block only. */}
         <div data-theme-ready style={{ padding: 32 }}>
           <div style={{ maxWidth: 1040, margin: '0 auto', display: 'grid', gap: 24 }}>
-            <PricingTable plans={PLANS} currentPlanCode="free" highlightPlan="pro" showToggle={false} onSelect={() => {}} />
+            <PricingTable plans={PLANS} currentPlanCode="free" highlightPlan="pro" highlightStyle={highlight} showToggle={false} onSelect={() => {}} />
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, alignItems: 'start' }}>
               <CreditBalance balance={BALANCE} />
               <UsageDashboard
