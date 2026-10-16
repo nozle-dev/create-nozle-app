@@ -1,6 +1,6 @@
 {
   "name": "nozle-template-credit-based",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Flat subscription template for workspace-based SaaS products (Notion, Linear, Slack)",
   "author": "Nozle",
   "private": true,
