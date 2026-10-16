@@ -10,6 +10,7 @@ import {
   CheckoutButton,
   CreditBalance,
   CreditHistory,
+  CurrentPlan,
   FeatureGate,
   LockedOverlay,
   PaymentMethodDisplay,
@@ -299,6 +300,29 @@ export function ThemeGallery({ name, highlight }: { name: string; highlight: 'ou
         <div style={{ maxWidth: 1040, margin: '0 auto', padding: '8px 32px 64px', display: 'grid', gap: 48 }}>
           <Section title="Plans">
             <div style={{ display: 'grid', gap: 24 }}>
+              <Labeled name="CurrentPlan">
+                <CurrentPlan
+                  subscription={{
+                    subscription: {
+                      external_id: 'sub-demo-1',
+                      plan_code: 'pro',
+                      status: 'active',
+                      ending_at: null,
+                      plan: { code: 'pro', name: 'Pro', amount_cents: 2900, currency: 'USD', interval: 'monthly' },
+                    },
+                    pending_change: { plan_code: 'scale', name: 'Scale', effective_at: '2026-11-01T00:00:00Z' },
+                  }}
+                  usage={[
+                    { key: 'api_calls', label: 'API calls', used: 41200, limit: 50000 },
+                    { key: 'seats', label: 'Seats', used: 6, limit: 10 },
+                  ]}
+                  details={[
+                    { label: 'Renews', value: 'Nov 1, 2026' },
+                    { label: 'AI credits included', value: '500 / month' },
+                  ]}
+                  actions={<a href="#" style={{ fontSize: 13, fontWeight: 600, color: 'inherit' }}>Manage billing</a>}
+                />
+              </Labeled>
               <div style={grid2}>
                 <Labeled name="PlanCard">
                   <PlanCard plan={PLANS[1]} isCurrent={false} onSelect={() => {}} />
