@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@nozle-js/node": "file:vendor/nozle-js-node-0.12.0.tgz",
-    "@nozle-js/react": "file:vendor/nozle-js-react-0.10.2.tgz",
+    "@nozle-js/react": "file:vendor/nozle-js-react-0.11.0.tgz",
     "@stripe/react-stripe-js": "^3.2.0",
     "@stripe/stripe-js": "^5.7.0",
     "@tanstack/react-query": "^5.101.1",
