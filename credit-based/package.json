@@ -25,6 +25,7 @@
     "lucide-react": "^0.468.0",
     "next": "^16.1.1",
     "next-themes": "^0.4.4",
+    "nozle-react-main": "file:vendor/nozle-js-react-0.10.2.tgz",
     "pg": "^8.13.1",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",

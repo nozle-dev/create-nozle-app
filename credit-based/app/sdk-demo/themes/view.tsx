@@ -35,13 +35,15 @@ import {
   type PlanChangeState,
   type PricingPlan,
 } from '@nozle-js/react'
-import { dark, light, minimal, neobrutal } from '@nozle-js/react/themes'
+import { dark, light, minimal, neobrutal, nozle, nozleDark } from '@nozle-js/react/themes'
 
 const THEMES: Record<string, { appearance: Appearance; page: string; text: string }> = {
   light: { appearance: { theme: light }, page: '#f8fafc', text: '#111827' },
   dark: { appearance: { theme: dark }, page: '#030712', text: '#f3f4f6' },
   minimal: { appearance: { theme: minimal }, page: '#ffffff', text: '#111827' },
   neobrutal: { appearance: { theme: neobrutal }, page: '#fef9c3', text: '#000000' },
+  nozle: { appearance: { theme: nozle }, page: 'hsl(138 30% 94%)', text: 'hsl(138 53% 8%)' },
+  nozleDark: { appearance: { theme: nozleDark }, page: 'hsl(138 40% 6%)', text: 'hsl(138 20% 94%)' },
 }
 
 // ── Sample data ─────────────────────────────────────────────────────────────
@@ -248,12 +250,14 @@ export function ThemeGallery({ name, highlight }: { name: string; highlight: 'ou
       style={{
         background: chosen.page,
         color: chosen.text,
-        colorScheme: key === 'dark' ? 'dark' : 'light',
+        colorScheme: key === 'dark' || key === 'nozleDark' ? 'dark' : 'light',
         minHeight: '100vh',
       }}
     >
       {/* Hides the Next.js dev indicator in screenshots. */}
       <style>{'nextjs-portal{display:none}'}</style>
+      {/* The nozle themes use Nunito; the app loads it, as the docs say. */}
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" />
       <BillingProvider publishableKey="pk_demo_themes" appearance={appearance} createCheckout={createCheckout}>
         <header
           style={{
