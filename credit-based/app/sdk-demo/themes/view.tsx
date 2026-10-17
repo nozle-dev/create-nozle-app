@@ -257,7 +257,7 @@ export function ThemeGallery({ name, highlight }: { name: string; highlight: 'ou
       {/* Hides the Next.js dev indicator in screenshots. */}
       <style>{'nextjs-portal{display:none}'}</style>
       {/* The nozle themes use Nunito; the app loads it, as the docs say. */}
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" />
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;800&display=swap" />
       <BillingProvider publishableKey="pk_demo_themes" appearance={appearance} createCheckout={createCheckout}>
         <header
           style={{
