@@ -144,7 +144,7 @@ export function MainGallery() {
   // The portal mock lives on this app; its URL is known only in the browser.
   const [portalApiUrl, setPortalApiUrl] = useState('')
   useEffect(() => setPortalApiUrl(`${window.location.origin}/sdk-demo/themes/portal-mock`), [])
-  const [hostVars, setHostVars] = useState<'shadcn' | 'none'>('shadcn')
+  const [hostVars, setHostVars] = useState<'shadcn' | 'none'>('none')
 
   return (
     <div style={{ background: '#f8fafc', color: '#111827', minHeight: '100vh', ...(hostVars === 'shadcn' ? SHADCN_VARS : {}) }}>
@@ -159,8 +159,8 @@ export function MainGallery() {
               onChange={(event) => setHostVars(event.target.value as 'shadcn' | 'none')}
               style={{ font: 'inherit', fontWeight: 500, padding: '5px 8px', borderRadius: 8, border: '1px solid currentColor', background: 'transparent' }}
             >
-              <option value="shadcn">shadcn variables set</option>
               <option value="none">none (plain app)</option>
+              <option value="shadcn">shadcn variables set</option>
             </select>
           </label>
           <a href="/sdk-demo/themes" style={{ fontSize: 13, color: 'inherit' }}>Compare: integration build →</a>
@@ -169,19 +169,22 @@ export function MainGallery() {
         <div style={{ maxWidth: 1040, margin: '0 auto', padding: '32px 32px 64px', display: 'grid', gap: 48 }}>
           <Section title="Plans">
             <div style={{ display: 'grid', gap: 24 }}>
-              <Labeled name="PricingTable">
+              <Labeled name="PricingTable (catalog plans: main shows no plan features)">
+                <PricingTable plans={PLANS} currentPlanCode="free" highlightPlan="pro" showToggle={false} onSelect={() => {}} />
+              </Labeled>
+              <Labeled name="PricingTable features={...} (lines typed by hand in the app)">
                 <PricingTable plans={PLANS} features={FEATURES} currentPlanCode="free" highlightPlan="pro" showToggle={false} onSelect={() => {}} />
               </Labeled>
               <Missing names="CurrentPlan" />
               <div style={grid2}>
-                <Labeled name="PlanCard">
+                <Labeled name="PlanCard (data typed by hand in the app)">
                   <PlanCard {...CARD_PLANS[1]} isAnnual={false} isCurrent={false} onSelect={() => {}} />
                 </Labeled>
                 <Labeled name="PlanCard isCurrent">
                   <PlanCard {...CARD_PLANS[0]} isAnnual={false} isCurrent onSelect={() => {}} />
                 </Labeled>
               </div>
-              <Labeled name="PlanComparison">
+              <Labeled name="PlanComparison (plans and rows typed by hand in the app)">
                 <PlanComparison plans={CARD_PLANS} features={COMPARISON} />
               </Labeled>
               <Labeled name="PlanBadge">

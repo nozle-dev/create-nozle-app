@@ -1,6 +1,4 @@
 @import "tailwindcss";
-/* The main-branch SDK on /sdk-demo/main styles some components with Tailwind classes. */
-@source "../node_modules/nozle-react-main/dist";
 
 @theme {
   /* Primary colors */
