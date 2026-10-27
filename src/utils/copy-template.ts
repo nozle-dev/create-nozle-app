@@ -38,10 +38,6 @@ export async function writeEnvFile(
 
   content += '\nDEMO_MODE=false\n'
 
-  content += '\n# Stripe (add your keys)\n'
-  content += '# NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=\n'
-  content += '# STRIPE_SECRET_KEY=\n'
-
   if (config.features && Object.keys(config.features).length > 0) {
     content += '\n# Feature Gates\n'
     for (const [feature, enabled] of Object.entries(config.features)) {

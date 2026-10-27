@@ -17,8 +17,6 @@
     "react-dom": "^19.2.3",
     "@nozle-js/react": "^0.5.3",
     "@nozle-js/node": "^0.3.0",
-    "@stripe/stripe-js": "^5.7.0",
-    "@stripe/react-stripe-js": "^3.2.0",
     "iron-session": "^8.0.3",
     "bcrypt": "^5.1.1",
     "pg": "^8.13.1",
