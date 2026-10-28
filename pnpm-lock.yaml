@@ -78,12 +78,6 @@ importers:
       '@nozle-js/react':
         specifier: ^0.5.3
         version: 0.5.3(@stripe/react-stripe-js@3.10.0)(@stripe/stripe-js@5.10.0)(react-dom@19.2.7)(react@19.2.7)
-      '@stripe/react-stripe-js':
-        specifier: ^3.2.0
-        version: 3.10.0(@stripe/stripe-js@5.10.0)(react-dom@19.2.7)(react@19.2.7)
-      '@stripe/stripe-js':
-        specifier: ^5.7.0
-        version: 5.10.0
       bcrypt:
         specifier: ^5.1.1
         version: 5.1.1
@@ -172,12 +166,6 @@ importers:
       '@nozle-js/react':
         specifier: ^0.5.3
         version: 0.5.3(@stripe/react-stripe-js@3.10.0)(@stripe/stripe-js@5.10.0)(react-dom@19.2.7)(react@19.2.7)
-      '@stripe/react-stripe-js':
-        specifier: ^3.2.0
-        version: 3.10.0(@stripe/stripe-js@5.10.0)(react-dom@19.2.7)(react@19.2.7)
-      '@stripe/stripe-js':
-        specifier: ^5.7.0
-        version: 5.10.0
       bcrypt:
         specifier: ^5.1.1
         version: 5.1.1
@@ -266,12 +254,6 @@ importers:
       '@nozle-js/react':
         specifier: ^0.5.3
         version: 0.5.3(@stripe/react-stripe-js@3.10.0)(@stripe/stripe-js@5.10.0)(react-dom@19.2.7)(react@19.2.7)
-      '@stripe/react-stripe-js':
-        specifier: ^3.2.0
-        version: 3.10.0(@stripe/stripe-js@5.10.0)(react-dom@19.2.7)(react@19.2.7)
-      '@stripe/stripe-js':
-        specifier: ^5.7.0
-        version: 5.10.0
       bcrypt:
         specifier: ^5.1.1
         version: 5.1.1
@@ -360,12 +342,6 @@ importers:
       '@nozle-js/react':
         specifier: ^0.5.3
         version: 0.5.3(@stripe/react-stripe-js@3.10.0)(@stripe/stripe-js@5.10.0)(react-dom@19.2.7)(react@19.2.7)
-      '@stripe/react-stripe-js':
-        specifier: ^3.2.0
-        version: 3.10.0(@stripe/stripe-js@5.10.0)(react-dom@19.2.7)(react@19.2.7)
-      '@stripe/stripe-js':
-        specifier: ^5.7.0
-        version: 5.10.0
       bcrypt:
         specifier: ^5.1.1
         version: 5.1.1

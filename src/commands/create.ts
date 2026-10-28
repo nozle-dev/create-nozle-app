@@ -120,9 +120,9 @@ export async function createApp(
 
   if (!setupConfig.onboarded && setupConfig.featureCodes.length > 0) {
     logger.info(`  2. ${chalk.cyan('Update feature flags in .env.local based on your plan')}`)
-    logger.info(`  3. ${chalk.cyan('Add Stripe keys to .env.local')}`)
+    logger.info(`  3. ${chalk.cyan('Connect your payment provider in the Nozle dashboard')}`)
   } else if (!setupConfig.onboarded) {
-    logger.info(`  2. ${chalk.cyan('Add Stripe keys to .env.local')}`)
+    logger.info(`  2. ${chalk.cyan('Connect your payment provider in the Nozle dashboard')}`)
   }
 
   const runCmd = getRunCommand(projectConfig.packageManager)

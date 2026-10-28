@@ -45,8 +45,6 @@ To connect real Nozle billing:
 NOZLE_API_KEY=sk_live_your_key
 NEXT_PUBLIC_NOZLE_PUBLIC_KEY=pk_live_your_key
 NOZLE_CUSTOMER_ID=your_customer_id
-NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_...
-STRIPE_SECRET_KEY=sk_test_...
 ```
 
 3. **Uncomment NozleProvider** in `components/providers.tsx`:

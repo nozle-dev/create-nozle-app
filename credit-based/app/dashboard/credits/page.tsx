@@ -37,7 +37,7 @@
  *
  * SDK Components Features:
  * - CreditBalance: Shows available credits, auto-updates
- * - CreditTopUpButton: Opens Stripe checkout with preset amounts
+ * - CreditTopUpButton: Starts a hosted checkout with preset amounts
  * - CreditHistory: Shows purchases, deductions, grants with type badges
  * - All components theme automatically with your design system
  */
