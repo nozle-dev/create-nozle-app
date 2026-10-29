@@ -135,11 +135,6 @@ export async function getCurrentPlan(nozle: Nozle, customerId: string): Promise<
   }
 }
 
-export function derivePublicKey(secretKey: string): string {
-  // Convert sk_live_xxx to pk_live_xxx or sk_test_xxx to pk_test_xxx
-  return secretKey.replace(/^sk_/, 'pk_')
-}
-
 /**
  * Check if user is already onboarded by checking if they have any plans
  */

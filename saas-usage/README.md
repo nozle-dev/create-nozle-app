@@ -43,7 +43,7 @@ To connect real Nozle billing:
 2. **Update environment variables** in `.env.local`:
 ```env
 NOZLE_API_KEY=sk_live_your_key
-NEXT_PUBLIC_NOZLE_PUBLIC_KEY=pk_live_your_key
+NEXT_PUBLIC_NOZLE_PUBLISHABLE_KEY=pk_live_your_key
 NOZLE_CUSTOMER_ID=your_customer_id
 ```
 
@@ -53,7 +53,7 @@ import { NozleProvider } from '@nozle-js/react'
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
-    <NozleProvider publicKey={process.env.NEXT_PUBLIC_NOZLE_PUBLIC_KEY!}>
+    <NozleProvider publicKey={process.env.NEXT_PUBLIC_NOZLE_PUBLISHABLE_KEY!}>
       {children}
     </NozleProvider>
   )

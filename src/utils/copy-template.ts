@@ -26,7 +26,7 @@ export async function writeEnvFile(
   const envPath = path.join(destination, '.env.local')
 
   let content = '# Nozle Configuration\n'
-  content += '# Public key (NEXT_PUBLIC_NOZLE_API_KEY) is auto-derived in next.config.ts\n'
+  content += '# NOZLE_API_KEY is a server-only secret. Browser publishable key (optional): NEXT_PUBLIC_NOZLE_PUBLISHABLE_KEY\n'
 
   if (config.apiKey) {
     content += `NOZLE_API_KEY=${config.apiKey}\n`

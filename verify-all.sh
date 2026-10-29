@@ -118,6 +118,22 @@ check_versions() {
   fi
 }
 
+# Fail if any NEXT_PUBLIC_* in next.config.* is derived from a secret env var
+check_no_secret_in_public() {
+  local bad
+  bad=$(grep -nE 'NEXT_PUBLIC_[A-Z0-9_]*[[:space:]]*:.*(SECRET|API_KEY|PRIVATE|TOKEN|PASSWORD)' \
+    */next.config.* 2>/dev/null | grep -E 'process\.env\.[A-Z0-9_]*(SECRET|API_KEY|PRIVATE|TOKEN|PASSWORD)' || true)
+  if [ -n "$bad" ]; then
+    echo -e "${RED}✗ NEXT_PUBLIC_* derived from a secret env var:${NC}"
+    echo "$bad"
+    return 1
+  fi
+  echo -e "${GREEN}✓ No NEXT_PUBLIC_* derived from secrets${NC}"
+}
+
+check_no_secret_in_public || exit 1
+if [ "${1:-}" = "--secrets-only" ]; then exit 0; fi
+
 # Main verification loop
 echo "Starting verification..."
 echo ""
