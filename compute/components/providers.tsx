@@ -25,7 +25,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <AuthProvider>
       <BillingProvider
-        publicKey={process.env.NEXT_PUBLIC_NOZLE_API_KEY!}
+        publicKey={process.env.NEXT_PUBLIC_NOZLE_PUBLISHABLE_KEY!}
         customerId={user?.id} // Get from auth context
       >
         {children}

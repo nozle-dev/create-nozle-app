@@ -2,7 +2,7 @@ import prompts from 'prompts'
 import ora from 'ora'
 import chalk from 'chalk'
 import { validateApiKey as validateApiKeyFormat } from './validation.js'
-import { validateApiKey, derivePublicKey, configureWorkspace, checkOnboardingStatus } from '../api/nozle-client.js'
+import { validateApiKey, configureWorkspace, checkOnboardingStatus } from '../api/nozle-client.js'
 import { logger } from '../utils/logger.js'
 import type { Nozle } from '@nozle-js/node'
 
@@ -67,7 +67,6 @@ export async function promptSetupWizard(): Promise<SetupConfig | null> {
     } else {
       spinner.succeed('API key validated')
       logger.success('Connected to Nozle')
-      publicKey = derivePublicKey(apiKey)
     }
   }
 

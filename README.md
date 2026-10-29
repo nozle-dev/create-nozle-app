@@ -98,7 +98,7 @@ NOZLE_API_KEY=sk_live_your_secret_key
 DEMO_MODE=false
 ```
 
-The public key (`NEXT_PUBLIC_NOZLE_API_KEY`) is auto-derived from your secret key in `next.config.ts`.
+`NOZLE_API_KEY` is server-only. If you enable the browser `BillingProvider`, set a separate publishable key: `NEXT_PUBLIC_NOZLE_PUBLISHABLE_KEY=pk_live_your_publishable_key`. It is never derived from the secret key.
 
 3. Restart the dev server
 
